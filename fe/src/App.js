@@ -30,7 +30,7 @@ function App() {
 
     setLoading(true);
     try {
-      const res = await axios.post("http://localhost:5000/api/certificates", {
+      const res = await axios.post("https://certificate-filter-be.onrender.com/api/certificates", {
         type: filterType,
         value: inputValue,
       });
