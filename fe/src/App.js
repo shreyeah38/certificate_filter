@@ -30,7 +30,7 @@ function App() {
 
     setLoading(true);
     try {
-      const res = await axios.post("https://certificate-filter-be.onrender.com/api/certificates", {
+      const res = await axios.post("https://certificate-filter-backend.onrender.com/api/certificates", {
         type: filterType,
         value: inputValue,
       });
@@ -61,6 +61,7 @@ function App() {
             <MenuItem value="">Select Filter</MenuItem>
             <MenuItem value="batch">Batch</MenuItem>
             <MenuItem value="description">Description</MenuItem>
+            <MenuItem value="session">Session</MenuItem>
           </Select>
         </Grid>
 
@@ -69,7 +70,11 @@ function App() {
             <TextField
               fullWidth
               label={
-                filterType === "batch" ? "Enter Batch (e.g., 2025)" : "Enter Description (e.g., GATE)"
+                filterType === "batch"
+                  ? "Enter Batch (e.g., 2025)"
+                  : filterType === "session"
+                  ? "Enter Session (e.g., January - June 2025)"
+                  : "Enter Description (e.g., GATE, CAT)"
               }
               variant="outlined"
               value={inputValue}
@@ -115,6 +120,12 @@ function App() {
                   </Typography>
                   <Typography variant="body2" color="text.secondary">
                     {cert.description}
+                  </Typography>
+                  <Typography variant="body2" color="text.secondary">
+                    <strong>Batch:</strong> {cert.batch || "N/A"}
+                  </Typography>
+                  <Typography variant="body2" color="text.secondary">
+                    <strong>Session:</strong> {cert.session || "N/A"}
                   </Typography>
                 </CardContent>
                 <CardActions>
